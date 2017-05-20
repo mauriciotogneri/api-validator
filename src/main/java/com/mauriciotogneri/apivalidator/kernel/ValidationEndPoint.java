@@ -60,7 +60,7 @@ public abstract class ValidationEndPoint
 
         Long endTime = System.nanoTime();
 
-        String endpointName = String.format("%s %s ", methodName(), apiRequest.code());
+        String endpointName = String.format("%s (%d) ", methodName(), apiRequest.code());
         logger.logLine("\t\t· %s", endpointName);
 
         String spanSpace = spanSpace(endpointName);

@@ -1,6 +1,8 @@
 package com.mauriciotogneri.apivalidator.api;
 
 import com.mauriciotogneri.apivalidator.parameters.body.BodyParameter;
+import com.mauriciotogneri.apivalidator.parameters.header.HeaderParameter;
+import com.mauriciotogneri.apivalidator.parameters.path.PathParameter;
 import com.mauriciotogneri.apivalidator.parameters.url.UrlParameter;
 import com.mauriciotogneri.apivalidator.responses.EmptyExpectedResponse;
 import com.mauriciotogneri.apivalidator.responses.ExpectedResponse;
@@ -8,6 +10,7 @@ import com.mauriciotogneri.apivalidator.responses.ExpectedResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,21 +37,9 @@ public class ApiRequest
         this.expectedResponse = expectedResponse;
     }
 
-    public String code()
+    public Integer code()
     {
         return expectedResponse.code();
-    }
-
-    private Response response() throws IOException
-    {
-        Request.Builder builder = new Request.Builder();
-        builder.url(url);
-        builder.method(method, body);
-
-        headers.forEach(builder::addHeader);
-        request = builder.build();
-
-        return client.newCall(request).execute();
     }
 
     public Request request()
@@ -68,6 +59,18 @@ public class ApiRequest
         {
             return ApiResult.error("", null, e.getLocalizedMessage());
         }
+    }
+
+    private Response response() throws IOException
+    {
+        Request.Builder builder = new Request.Builder();
+        builder.url(url);
+        builder.method(method, body);
+
+        headers.forEach(builder::addHeader);
+        request = builder.build();
+
+        return client.newCall(request).execute();
     }
 
     public static class Builder
@@ -90,12 +93,20 @@ public class ApiRequest
 
         public void url(UrlParameter urlParameter)
         {
-            url.append(urlParameter.toString());
+            url(urlParameter.toString());
         }
 
         public void url(String parameters)
         {
             url.append(parameters);
+        }
+
+        public void path(PathParameter pathParameter)
+        {
+            for (Entry<String, String> header : pathParameter)
+            {
+                path(header.getKey(), header.getValue());
+            }
         }
 
         public void path(String name, Object value)
@@ -110,6 +121,14 @@ public class ApiRequest
             url.replace(index, index + name.length(), value.toString());
         }
 
+        public void header(HeaderParameter headerParameter)
+        {
+            for (Entry<String, String> header : headerParameter)
+            {
+                header(header.getKey(), header.getValue());
+            }
+        }
+
         public void header(String key, Object value)
         {
             headers.put(key, value.toString());
@@ -117,7 +136,12 @@ public class ApiRequest
 
         public void body(BodyParameter bodyParameter)
         {
-            this.body = bodyParameter.body();
+            body(bodyParameter.body());
+        }
+
+        public void body(RequestBody requestBody)
+        {
+            this.body = requestBody;
         }
 
         public void response(ExpectedResponse expectedResponse)

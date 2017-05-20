@@ -15,9 +15,9 @@ public abstract class ExpectedResponse
         this.code = code;
     }
 
-    public String code()
+    public Integer code()
     {
-        return String.format("(%d)", code);
+        return code;
     }
 
     private Boolean isEmpty(String body)
