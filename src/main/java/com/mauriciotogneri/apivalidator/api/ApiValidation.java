@@ -1,4 +1,8 @@
-package com.mauriciotogneri.apivalidator.kernel;
+package com.mauriciotogneri.apivalidator.api;
+
+import com.mauriciotogneri.apivalidator.kernel.Logger;
+import com.mauriciotogneri.apivalidator.kernel.TestReport;
+import com.mauriciotogneri.apivalidator.kernel.ValidationModule;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
