@@ -1,12 +1,12 @@
-package com.mauriciotogneri.apivalidator.kernel.responses;
+package com.mauriciotogneri.apivalidator.responses;
 
 import com.mauriciotogneri.apivalidator.api.ApiResult;
 
 import okhttp3.Response;
 
-public class BinaryExpectedResponse extends ExpectedResponse
+public class TextExpectedResponse extends ExpectedResponse
 {
-    public BinaryExpectedResponse(Integer code)
+    public TextExpectedResponse(Integer code)
     {
         super(code);
     }

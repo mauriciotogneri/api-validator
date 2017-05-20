@@ -2,16 +2,13 @@ package com.mauriciotogneri.apivalidator.kernel;
 
 import com.mauriciotogneri.apivalidator.api.ApiRequest;
 import com.mauriciotogneri.apivalidator.api.ApiResult;
-import com.mauriciotogneri.apivalidator.helpers.JsonHelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 
 public abstract class ValidationEndPoint
 {
@@ -46,12 +43,12 @@ public abstract class ValidationEndPoint
 
     protected ApiRequest.Builder request(String method)
     {
-        return new ApiRequest.Builder(client, url, method);
+        return new ApiRequest.Builder(client, method, url);
     }
 
     protected ApiRequest.Builder request(String url, String method)
     {
-        return new ApiRequest.Builder(client, url, method);
+        return new ApiRequest.Builder(client, method, url);
     }
 
     protected ApiResult process(ApiRequest.Builder builder) throws Exception
@@ -103,11 +100,6 @@ public abstract class ValidationEndPoint
         }
 
         return apiResult;
-    }
-
-    protected RequestBody jsonBody(Object object)
-    {
-        return RequestBody.create(MediaType.parse("application/json"), JsonHelper.json(object));
     }
 
     public void checkNotEmpty(Object[] array, String message)

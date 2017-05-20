@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apivalidator.kernel.responses;
+package com.mauriciotogneri.apivalidator.responses;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.github.fge.jsonschema.core.report.LogLevel;

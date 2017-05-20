@@ -1,7 +1,9 @@
 package com.mauriciotogneri.apivalidator.api;
 
-import com.mauriciotogneri.apivalidator.kernel.responses.EmptyExpectedResponse;
-import com.mauriciotogneri.apivalidator.kernel.responses.ExpectedResponse;
+import com.mauriciotogneri.apivalidator.parameters.body.BodyParameter;
+import com.mauriciotogneri.apivalidator.parameters.url.UrlParameter;
+import com.mauriciotogneri.apivalidator.responses.EmptyExpectedResponse;
+import com.mauriciotogneri.apivalidator.responses.ExpectedResponse;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,21 +17,21 @@ import okhttp3.Response;
 public class ApiRequest
 {
     private final OkHttpClient client;
-    private final String url;
     private final String method;
+    private final String url;
     private final Map<String, String> headers;
     private final RequestBody body;
     private final ExpectedResponse expectedResponse;
     private Request request;
 
-    private ApiRequest(OkHttpClient client, String url, String method, Map<String, String> headers, RequestBody body, ExpectedResponse expectedResponse)
+    private ApiRequest(OkHttpClient client, String method, String url, Map<String, String> headers, RequestBody body, ExpectedResponse expectedResponse)
     {
         this.client = client;
-        this.url = url;
-        this.expectedResponse = expectedResponse;
         this.method = method;
+        this.url = url;
         this.headers = headers;
         this.body = body;
+        this.expectedResponse = expectedResponse;
     }
 
     public String code()
@@ -43,13 +45,7 @@ public class ApiRequest
         builder.url(url);
         builder.method(method, body);
 
-        /*if (body != null)
-        {
-            builder.addHeader("Content-Type", body.contentType().toString());
-        }*/
-
         headers.forEach(builder::addHeader);
-
         request = builder.build();
 
         return client.newCall(request).execute();
@@ -77,33 +73,32 @@ public class ApiRequest
     public static class Builder
     {
         private final OkHttpClient client;
-        private final StringBuilder url;
         private final String method;
+        private final StringBuilder url;
         private final Map<String, String> headers;
+        private RequestBody body;
         private ExpectedResponse response;
-        private RequestBody parameters;
 
-        public Builder(OkHttpClient client, String url, String method)
+        public Builder(OkHttpClient client, String method, String url)
         {
             this.client = client;
-            this.url = new StringBuilder(url);
             this.method = method;
-            this.response = new EmptyExpectedResponse(200);
+            this.url = new StringBuilder(url);
             this.headers = new HashMap<>();
+            this.response = new EmptyExpectedResponse(200);
         }
 
-        public void bodyParameters(RequestBody parameters)
+        public void url(UrlParameter urlParameter)
         {
-            this.parameters = parameters;
+            url.append(urlParameter.toString());
         }
 
-        // TODO
-        /*public void urlParameters(UrlParameters body)
+        public void url(String parameters)
         {
-            url.append(body.get(url.toString().contains("?")));
-        }*/
+            url.append(parameters);
+        }
 
-        public void pathParameter(String name, Object value)
+        public void path(String name, Object value)
         {
             int index = url.indexOf(name);
 
@@ -120,6 +115,11 @@ public class ApiRequest
             headers.put(key, value.toString());
         }
 
+        public void body(BodyParameter bodyParameter)
+        {
+            this.body = bodyParameter.body();
+        }
+
         public void response(ExpectedResponse expectedResponse)
         {
             response = expectedResponse;
@@ -127,7 +127,7 @@ public class ApiRequest
 
         public ApiRequest build()
         {
-            return new ApiRequest(client, url.toString(), method, headers, parameters, response);
+            return new ApiRequest(client, method, url.toString(), headers, body, response);
         }
     }
 }
