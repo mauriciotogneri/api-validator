@@ -68,9 +68,9 @@ public class ResourceHelper
         }
     }
 
-    public static boolean close(Closeable resource)
+    public static Boolean close(Closeable resource)
     {
-        boolean result = false;
+        Boolean result = false;
 
         if (resource != null)
         {

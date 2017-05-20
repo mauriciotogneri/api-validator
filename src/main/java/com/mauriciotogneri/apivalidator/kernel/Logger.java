@@ -18,10 +18,10 @@ import okio.Buffer;
 
 public class Logger
 {
-    private final boolean consoleLogs;
+    private final Boolean consoleLogs;
     private final BufferedWriter fileLog;
 
-    public Logger(boolean consoleLogs, String filePath) throws Exception
+    public Logger(Boolean consoleLogs, String filePath) throws Exception
     {
         this.consoleLogs = consoleLogs;
         this.fileLog = fileLog(filePath);
@@ -81,7 +81,7 @@ public class Logger
         writeToFile(log, false);
     }
 
-    public void network(boolean isValid, String format, Object... text)
+    public void network(Boolean isValid, String format, Object... text)
     {
         String log = text(format, text);
 
@@ -107,7 +107,7 @@ public class Logger
         writeToFile(log, true);
     }
 
-    private void writeToFile(String log, boolean newLine)
+    private void writeToFile(String log, Boolean newLine)
     {
         if (fileLog != null)
         {
@@ -135,7 +135,7 @@ public class Logger
         return String.format(format, text);
     }
 
-    public void logRequest(Request request, boolean isValid) throws IOException
+    public void logRequest(Request request, Boolean isValid) throws IOException
     {
         network(isValid, "%n>>> %s %s%n", request.method(), request.url());
         network(isValid, "%s", request.headers());
@@ -151,7 +151,7 @@ public class Logger
         }
     }
 
-    public void logResponse(Response response, String result, long totalTime, boolean isValid)
+    public void logResponse(Response response, String result, Long totalTime, Boolean isValid)
     {
         if (response != null)
         {

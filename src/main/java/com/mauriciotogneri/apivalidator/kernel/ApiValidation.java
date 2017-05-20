@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class ApiValidation
 {
-    private final List<ValidationService> validationServices = new ArrayList<>();
+    private final List<ValidationModule> modules = new ArrayList<>();
 
-    protected void add(ValidationService validationService)
+    protected void add(ValidationModule validationModule)
     {
-        validationServices.add(validationService);
+        modules.add(validationModule);
     }
 
     protected void start(Logger logger) throws Exception
@@ -23,9 +23,9 @@ public class ApiValidation
 
         List<TestReport> reports = new ArrayList<>();
 
-        for (ValidationService validationService : validationServices)
+        for (ValidationModule module : modules)
         {
-            reports.addAll(validationService.run(logger));
+            reports.addAll(module.run(logger));
         }
 
         printSummary(reports, startTime, logger);
@@ -33,7 +33,7 @@ public class ApiValidation
 
     private void printSummary(List<TestReport> reports, DateTime startTime, Logger logger)
     {
-        boolean allTestPassed = reports.stream().allMatch(r -> r.success);
+        Boolean allTestPassed = reports.stream().allMatch(r -> r.success);
 
         if (allTestPassed)
         {

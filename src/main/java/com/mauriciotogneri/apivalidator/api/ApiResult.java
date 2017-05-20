@@ -7,12 +7,12 @@ import okhttp3.Response;
 
 public class ApiResult
 {
-    private final boolean valid;
+    private final Boolean valid;
     private final String result;
     private final Response response;
     private final String error;
 
-    private ApiResult(boolean valid, String result, Response response, String error)
+    private ApiResult(Boolean valid, String result, Response response, String error)
     {
         this.valid = valid;
         this.result = result;
@@ -20,7 +20,7 @@ public class ApiResult
         this.error = error;
     }
 
-    public boolean isValid()
+    public Boolean isValid()
     {
         return valid;
     }

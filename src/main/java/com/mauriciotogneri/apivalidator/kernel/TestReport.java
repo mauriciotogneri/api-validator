@@ -4,11 +4,11 @@ import com.mauriciotogneri.apivalidator.helpers.StringHelper;
 
 public class TestReport
 {
-    public final boolean success;
+    public final Boolean success;
     public final String clazz;
     public final String method;
 
-    public TestReport(boolean success)
+    public TestReport(Boolean success)
     {
         this.success = success;
 
@@ -43,8 +43,10 @@ public class TestReport
     public int hashCode()
     {
         int result = (success ? 1 : 0);
+
         result = 31 * result + clazz.hashCode();
         result = 31 * result + method.hashCode();
+
         return result;
     }
 }

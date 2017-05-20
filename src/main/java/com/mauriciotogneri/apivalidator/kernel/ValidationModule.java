@@ -3,7 +3,7 @@ package com.mauriciotogneri.apivalidator.kernel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationService
+public class ValidationModule
 {
     private final List<ValidationEndPoint> endpoints = new ArrayList<>();
 

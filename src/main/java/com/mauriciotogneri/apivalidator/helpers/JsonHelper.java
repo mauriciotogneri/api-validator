@@ -38,7 +38,7 @@ public class JsonHelper
     {
     }
 
-    public static Gson create(boolean prettyPrint)
+    public static Gson create(Boolean prettyPrint)
     {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter());

@@ -18,10 +18,10 @@ public abstract class ValidationEndPoint
     private final OkHttpClient client;
     private final Logger logger;
     private final String url;
-    private final boolean exitOnFail;
+    private final Boolean exitOnFail;
     private final List<TestReport> reports = new ArrayList<>();
 
-    protected ValidationEndPoint(OkHttpClient client, Logger logger, String url, boolean exitOnFail)
+    protected ValidationEndPoint(OkHttpClient client, Logger logger, String url, Boolean exitOnFail)
     {
         this.client = client;
         this.logger = logger;
@@ -31,7 +31,7 @@ public abstract class ValidationEndPoint
 
     protected abstract void execute() throws Exception;
 
-    protected void processApiResult(ApiResult result)
+    protected void process(ApiResult result)
     {
     }
 
@@ -56,12 +56,12 @@ public abstract class ValidationEndPoint
 
     protected ApiResult process(ApiRequest.Builder builder) throws Exception
     {
-        long startTime = System.nanoTime();
+        Long startTime = System.nanoTime();
 
         ApiRequest apiRequest = builder.build();
         ApiResult apiResult = apiRequest.execute();
 
-        long endTime = System.nanoTime();
+        Long endTime = System.nanoTime();
 
         String endpointName = String.format("%s %s ", methodName(), apiRequest.code());
         logger.logLine("\t\t· %s", endpointName);
@@ -73,7 +73,7 @@ public abstract class ValidationEndPoint
         {
             addTestReport(new TestReport(true));
 
-            processApiResult(apiResult);
+            process(apiResult);
 
             logger.log(" OK");
         }
@@ -150,14 +150,14 @@ public abstract class ValidationEndPoint
 
     private String spanSpace(String text)
     {
-        String space = "";
+        StringBuilder space = new StringBuilder();
         int limit = 50 - (text.length());
 
         for (int i = 0; i < limit; i++)
         {
-            space += ".";
+            space.append(".");
         }
 
-        return space;
+        return space.toString();
     }
 }

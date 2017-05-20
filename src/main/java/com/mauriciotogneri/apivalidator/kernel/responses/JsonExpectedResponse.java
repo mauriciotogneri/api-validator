@@ -6,6 +6,7 @@ import com.github.fge.jsonschema.core.report.ProcessingMessage;
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.google.gson.JsonObject;
 import com.mauriciotogneri.apivalidator.api.ApiResult;
+import com.mauriciotogneri.jsonschema.JsonSchema;
 import com.mauriciotogneri.jsonschema.SchemaValidator;
 
 import java.util.Iterator;
@@ -19,7 +20,7 @@ public class JsonExpectedResponse extends ExpectedResponse
     public JsonExpectedResponse(Integer code, Class<?> clazz)
     {
         super(code);
-        this.schema = new JsonObject();
+        this.schema = new JsonSchema(clazz).schema();
     }
 
     @Override

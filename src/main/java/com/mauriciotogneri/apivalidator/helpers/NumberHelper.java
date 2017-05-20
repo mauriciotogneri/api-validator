@@ -9,22 +9,22 @@ public class NumberHelper
     {
     }
 
-    public static int randomInt(int places)
+    public static Integer randomInt(Integer places)
     {
         return RandomHelper.nextInt(places);
     }
 
-    public static double randomAsDecimal(int places)
+    public static Double randomAsDecimal(Integer places)
     {
         return round(RandomHelper.nextDouble() * Math.pow(10, places), 2);
     }
 
-    public static double randomPercentage()
+    public static Double randomPercentage()
     {
         return round(RandomHelper.nextDouble() * RandomHelper.sign(), 2);
     }
 
-    public static double round(double value, int places)
+    public static Double round(Double value, Integer places)
     {
         BigDecimal bigDecimal = BigDecimal.valueOf(value);
         bigDecimal = bigDecimal.setScale(places, RoundingMode.HALF_UP);
