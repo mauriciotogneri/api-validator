@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apivalidator.parameters.body;
 
-import com.mauriciotogneri.apivalidator.helpers.JsonHelper;
+import com.google.gson.Gson;
 
 import okhttp3.RequestBody;
 
@@ -18,6 +18,6 @@ public class JsonBodyParameter extends BodyParameter
     @Override
     public RequestBody body()
     {
-        return RequestBody.create(contentType(), JsonHelper.json(body));
+        return RequestBody.create(contentType(), new Gson().toJson(body));
     }
 }

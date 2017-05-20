@@ -1,8 +1,5 @@
 package com.mauriciotogneri.apivalidator.api;
 
-import com.google.gson.Gson;
-import com.mauriciotogneri.apivalidator.helpers.JsonHelper;
-
 import java.io.IOException;
 
 import okhttp3.Response;
@@ -40,13 +37,6 @@ public class ApiResult
     public byte[] bytes() throws IOException
     {
         return response.body().bytes();
-    }
-
-    public <T> T json(Class<T> clazz)
-    {
-        Gson gson = JsonHelper.create(false);
-
-        return gson.fromJson(string, clazz);
     }
 
     public String error()

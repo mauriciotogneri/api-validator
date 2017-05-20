@@ -1,7 +1,5 @@
 package com.mauriciotogneri.apivalidator.kernel;
 
-import com.mauriciotogneri.apivalidator.helpers.StringHelper;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -29,7 +27,7 @@ public class Logger
 
     private BufferedWriter fileLog(String filePath) throws Exception
     {
-        if (!filePath.isEmpty() && !StringHelper.equals(filePath, "-"))
+        if ((filePath != null) && (!filePath.isEmpty()) && (!filePath.equals("-")))
         {
             DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd_HH-mm-ss");
             String timestamp = dtf.print(new DateTime());

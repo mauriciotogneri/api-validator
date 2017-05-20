@@ -1,7 +1,5 @@
 package com.mauriciotogneri.apivalidator.kernel;
 
-import com.mauriciotogneri.apivalidator.helpers.StringHelper;
-
 public class TestReport
 {
     public final Boolean success;
@@ -35,8 +33,8 @@ public class TestReport
         TestReport report = (TestReport) o;
 
         return (success == report.success) &&
-                StringHelper.equals(clazz, report.clazz) &&
-                StringHelper.equals(method, report.method);
+                clazz.equals(report.clazz) &&
+                method.equals(report.method);
     }
 
     @Override
