@@ -24,6 +24,7 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class JsonHelper
@@ -79,7 +80,7 @@ public class JsonHelper
         @Override
         public JsonElement serialize(DateTime dateTime, Type type, JsonSerializationContext context)
         {
-            return new JsonPrimitive(DateHelper.date(dateTime));
+            return new JsonPrimitive(DateHelper.date(dateTime, Locale.getDefault()));
         }
 
         @Override

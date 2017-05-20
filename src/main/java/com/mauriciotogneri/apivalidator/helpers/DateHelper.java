@@ -17,7 +17,7 @@ public class DateHelper
 
     // ============================================================================================
 
-    public String date(DateTime dateTime, DateTimeZone timeZone, Locale locale, String defaultValue)
+    public static String date(DateTime dateTime, DateTimeZone timeZone, Locale locale, String defaultValue)
     {
         if ((dateTime != null) && (timeZone != null) && (locale != null))
         {
@@ -29,24 +29,24 @@ public class DateHelper
         }
     }
 
-    public String date(DateTime dateTime, Locale locale, String defaultValue)
+    public static String date(DateTime dateTime, Locale locale, String defaultValue)
     {
         return date(dateTime, DateTimeZone.getDefault(), locale, defaultValue);
     }
 
-    public String date(DateTime dateTime, DateTimeZone timeZone, Locale locale)
+    public static String date(DateTime dateTime, DateTimeZone timeZone, Locale locale)
     {
         return date(dateTime, timeZone, locale, null);
     }
 
-    public String date(DateTime dateTime, Locale locale)
+    public static String date(DateTime dateTime, Locale locale)
     {
         return date(dateTime, DateTimeZone.getDefault(), locale, null);
     }
 
     // ============================================================================================
 
-    public DateTime date(String timestamp, DateTimeZone timeZone, DateTime defaultValue)
+    public static DateTime date(String timestamp, DateTimeZone timeZone, DateTime defaultValue)
     {
         try
         {
@@ -58,17 +58,17 @@ public class DateHelper
         }
     }
 
-    public DateTime date(String timestamp, DateTime defaultValue)
+    public static DateTime date(String timestamp, DateTime defaultValue)
     {
         return date(timestamp, DateTimeZone.getDefault(), defaultValue);
     }
 
-    public DateTime date(String timestamp, DateTimeZone timeZone)
+    public static DateTime date(String timestamp, DateTimeZone timeZone)
     {
         return date(timestamp, timeZone, null);
     }
 
-    public DateTime date(String timestamp)
+    public static DateTime date(String timestamp)
     {
         return date(timestamp, DateTimeZone.getDefault(), null);
     }
