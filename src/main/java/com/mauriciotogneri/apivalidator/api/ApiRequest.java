@@ -57,7 +57,7 @@ public class ApiRequest
         }
         catch (Exception e)
         {
-            return ApiResult.error("", null, e.getLocalizedMessage());
+            return ApiResult.error(null, "", e.getLocalizedMessage());
         }
     }
 

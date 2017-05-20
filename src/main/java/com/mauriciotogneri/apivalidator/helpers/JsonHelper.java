@@ -64,14 +64,14 @@ public class JsonHelper
 
     public static JsonObject jsonObject(Object object)
     {
-        return jsonObject(json(object)).getAsJsonObject();
+        return jsonObject(json(object));
     }
 
-    public static JsonElement jsonObject(String string)
+    public static JsonObject jsonObject(String string)
     {
         JsonParser parser = new JsonParser();
 
-        return parser.parse(string);
+        return parser.parse(string).getAsJsonObject();
     }
 
     private static class DateTimeTypeAdapter implements JsonSerializer<DateTime>, JsonDeserializer<DateTime>

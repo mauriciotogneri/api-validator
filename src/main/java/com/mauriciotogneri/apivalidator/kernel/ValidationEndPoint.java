@@ -92,7 +92,7 @@ public abstract class ValidationEndPoint
         }
 
         logger.logRequest(apiRequest.request(), apiResult.isValid());
-        logger.logResponse(apiResult.response(), apiResult.result(), endTime - startTime, apiResult.isValid());
+        logger.logResponse(apiResult.response(), apiResult.string(), endTime - startTime, apiResult.isValid());
 
         if (exitOnFail && (!apiResult.isValid()))
         {

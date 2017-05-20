@@ -14,6 +14,6 @@ public class TextExpectedResponse extends ExpectedResponse
     @Override
     public ApiResult validate(Response response, String body) throws Exception
     {
-        return ApiResult.valid(body, response);
+        return ApiResult.valid(response, body);
     }
 }

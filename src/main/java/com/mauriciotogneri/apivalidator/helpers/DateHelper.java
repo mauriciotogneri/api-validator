@@ -1,56 +1,75 @@
 package com.mauriciotogneri.apivalidator.helpers;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Locale;
+
 public class DateHelper
 {
-    private static final DateTimeFormatter defaultFormat1 = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static final DateTimeFormatter defaultFormat2 = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-    private static final DateTimeFormatter defaultFormat3 = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    private static final DateTimeFormatter defaultFormat4 = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-    private static final DateTimeFormatter defaultFormat5 = DateTimeFormat.forPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     private DateHelper()
     {
     }
 
-    public static synchronized String date(DateTime dateTime)
+    // ============================================================================================
+
+    public String date(DateTime dateTime, DateTimeZone timeZone, Locale locale, String defaultValue)
     {
-        return defaultFormat1.print(dateTime);
+        if ((dateTime != null) && (timeZone != null) && (locale != null))
+        {
+            return formatter.withZone(timeZone).withLocale(locale).print(dateTime);
+        }
+        else
+        {
+            return defaultValue;
+        }
     }
 
-    public static synchronized DateTime date(String value)
+    public String date(DateTime dateTime, Locale locale, String defaultValue)
+    {
+        return date(dateTime, DateTimeZone.getDefault(), locale, defaultValue);
+    }
+
+    public String date(DateTime dateTime, DateTimeZone timeZone, Locale locale)
+    {
+        return date(dateTime, timeZone, locale, null);
+    }
+
+    public String date(DateTime dateTime, Locale locale)
+    {
+        return date(dateTime, DateTimeZone.getDefault(), locale, null);
+    }
+
+    // ============================================================================================
+
+    public DateTime date(String timestamp, DateTimeZone timeZone, DateTime defaultValue)
     {
         try
         {
-            return defaultFormat1.parseDateTime(value);
+            return formatter.withZone(timeZone).parseDateTime(timestamp);
         }
-        catch (Exception e1)
+        catch (Exception e)
         {
-            try
-            {
-                return defaultFormat2.parseDateTime(value);
-            }
-            catch (Exception e2)
-            {
-                try
-                {
-                    return defaultFormat3.parseDateTime(value);
-                }
-                catch (Exception e3)
-                {
-                    try
-                    {
-                        return defaultFormat4.parseDateTime(value);
-                    }
-                    catch (Exception e4)
-                    {
-                        return defaultFormat5.parseDateTime(value);
-                    }
-                }
-            }
+            return defaultValue;
         }
+    }
+
+    public DateTime date(String timestamp, DateTime defaultValue)
+    {
+        return date(timestamp, DateTimeZone.getDefault(), defaultValue);
+    }
+
+    public DateTime date(String timestamp, DateTimeZone timeZone)
+    {
+        return date(timestamp, timeZone, null);
+    }
+
+    public DateTime date(String timestamp)
+    {
+        return date(timestamp, DateTimeZone.getDefault(), null);
     }
 }

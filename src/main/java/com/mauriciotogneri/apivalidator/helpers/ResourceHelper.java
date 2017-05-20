@@ -15,12 +15,12 @@ public class ResourceHelper
     {
     }
 
-    public static String asString(InputStream inputStream)
+    public static String string(InputStream inputStream)
     {
         return new Scanner(inputStream, "UTF-8").useDelimiter("\\A").next();
     }
 
-    public static byte[] asBytes(InputStream inputStream) throws IOException
+    public static byte[] bytes(InputStream inputStream) throws IOException
     {
         int read;
         int size = 1024;
@@ -36,14 +36,14 @@ public class ResourceHelper
         return bos.toByteArray();
     }
 
-    public static String asString(String pattern, Object... parameters)
+    public static String string(String pattern, Object... parameters)
     {
-        return asString(inputStream(String.format(pattern, parameters)));
+        return string(inputStream(String.format(pattern, parameters)));
     }
 
-    public static byte[] asBytes(String pattern, Object... parameters) throws IOException
+    public static byte[] bytes(String pattern, Object... parameters) throws IOException
     {
-        return asBytes(inputStream(String.format(pattern, parameters)));
+        return bytes(inputStream(String.format(pattern, parameters)));
     }
 
     public static InputStream inputStream(String path)

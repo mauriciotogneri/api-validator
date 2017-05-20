@@ -32,11 +32,11 @@ public class JsonExpectedResponse extends ExpectedResponse
 
         if (report.isSuccess())
         {
-            return ApiResult.valid(result, response);
+            return ApiResult.valid(response, result);
         }
         else
         {
-            return ApiResult.error(result, response, report.toString());
+            return ApiResult.error(response, result, report.toString());
         }
     }
 

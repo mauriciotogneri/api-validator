@@ -3,20 +3,22 @@ package com.mauriciotogneri.apivalidator.api;
 import com.google.gson.Gson;
 import com.mauriciotogneri.apivalidator.helpers.JsonHelper;
 
+import java.io.IOException;
+
 import okhttp3.Response;
 
 public class ApiResult
 {
     private final Boolean valid;
-    private final String result;
     private final Response response;
+    private final String string;
     private final String error;
 
-    private ApiResult(Boolean valid, String result, Response response, String error)
+    private ApiResult(Boolean valid, Response response, String string, String error)
     {
         this.valid = valid;
-        this.result = result;
         this.response = response;
+        this.string = string;
         this.error = error;
     }
 
@@ -30,30 +32,35 @@ public class ApiResult
         return response;
     }
 
+    public String string()
+    {
+        return string;
+    }
+
+    public byte[] bytes() throws IOException
+    {
+        return response.body().bytes();
+    }
+
+    public <T> T json(Class<T> clazz)
+    {
+        Gson gson = JsonHelper.create(false);
+
+        return gson.fromJson(string, clazz);
+    }
+
     public String error()
     {
         return error;
     }
 
-    public String result()
+    public static ApiResult valid(Response response, String string)
     {
-        return result;
+        return new ApiResult(true, response, string, "");
     }
 
-    public <T> T result(Class<T> clazz)
+    public static ApiResult error(Response response, String string, String error)
     {
-        Gson gson = JsonHelper.create(false);
-
-        return gson.fromJson(result, clazz);
-    }
-
-    public static ApiResult valid(String result, Response response)
-    {
-        return new ApiResult(true, result, response, "");
-    }
-
-    public static ApiResult error(String result, Response response, String error)
-    {
-        return new ApiResult(false, result, response, error);
+        return new ApiResult(false, response, string, error);
     }
 }

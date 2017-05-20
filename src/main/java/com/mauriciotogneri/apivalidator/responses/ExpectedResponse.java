@@ -35,15 +35,15 @@ public abstract class ExpectedResponse
             if (isEmpty(body) && !shouldBeEmpty())
             {
                 return ApiResult.error(
-                        body,
                         response,
+                        body,
                         "Expected non empty response but received no data");
             }
             else if (!isEmpty(body) && shouldBeEmpty())
             {
                 return ApiResult.error(
-                        body,
                         response,
+                        body,
                         "Expected empty response but received data");
             }
             else
@@ -54,9 +54,9 @@ public abstract class ExpectedResponse
         else
         {
             return ApiResult.error(
-                    body,
                     response,
-                    String.format("Expected response code %s but received %s", code, responseCode));
+                    body,
+                    String.format("Expected response code %d but received %s", code, responseCode));
         }
     }
 
