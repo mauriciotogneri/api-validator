@@ -4,11 +4,11 @@ import java.lang.reflect.Field;
 
 public class UrlParameter
 {
-    private final Class<?> clazz;
+    private final Object object;
 
-    public UrlParameter(Class<?> clazz)
+    public UrlParameter(Object object)
     {
-        this.clazz = clazz;
+        this.object = object;
     }
 
     @Override
@@ -16,13 +16,13 @@ public class UrlParameter
     {
         StringBuilder builder = new StringBuilder();
 
-        Field[] fields = clazz.getDeclaredFields();
+        Field[] fields = object.getClass().getDeclaredFields();
 
         for (Field field : fields)
         {
             try
             {
-                Object value = field.get(this);
+                Object value = field.get(object);
 
                 if (value != null)
                 {

@@ -7,20 +7,20 @@ import java.util.Map.Entry;
 
 public class PathParameter extends HashMap<String, String> implements Iterable<Entry<String, String>>
 {
-    public PathParameter(Class<?> clazz)
+    public PathParameter(Object object)
     {
-        fill(clazz);
+        fill(object);
     }
 
-    private void fill(Class<?> clazz)
+    private void fill(Object object)
     {
-        Field[] fields = clazz.getDeclaredFields();
+        Field[] fields = object.getClass().getDeclaredFields();
 
         for (Field field : fields)
         {
             try
             {
-                Object value = field.get(this);
+                Object value = field.get(object);
 
                 if (value != null)
                 {
