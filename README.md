@@ -20,6 +20,6 @@ and the dependency:
 <dependency>
     <groupId>com.github.mauriciotogneri</groupId>
     <artifactId>api-validator</artifactId>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
 </dependency>
 ```
