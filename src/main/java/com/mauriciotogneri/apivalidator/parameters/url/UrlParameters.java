@@ -2,11 +2,11 @@ package com.mauriciotogneri.apivalidator.parameters.url;
 
 import java.lang.reflect.Field;
 
-public class UrlParameter
+public class UrlParameters
 {
     private final Object object;
 
-    public UrlParameter(Object object)
+    public UrlParameters(Object object)
     {
         this.object = object;
     }

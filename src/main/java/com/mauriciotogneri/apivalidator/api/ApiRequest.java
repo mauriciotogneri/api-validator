@@ -1,9 +1,9 @@
 package com.mauriciotogneri.apivalidator.api;
 
 import com.mauriciotogneri.apivalidator.parameters.body.BodyParameter;
-import com.mauriciotogneri.apivalidator.parameters.header.HeaderParameter;
-import com.mauriciotogneri.apivalidator.parameters.path.PathParameter;
-import com.mauriciotogneri.apivalidator.parameters.url.UrlParameter;
+import com.mauriciotogneri.apivalidator.parameters.header.HeaderParameters;
+import com.mauriciotogneri.apivalidator.parameters.path.PathParameters;
+import com.mauriciotogneri.apivalidator.parameters.url.UrlParameters;
 import com.mauriciotogneri.apivalidator.responses.EmptyExpectedResponse;
 import com.mauriciotogneri.apivalidator.responses.ExpectedResponse;
 
@@ -92,9 +92,9 @@ public class ApiRequest
             this.response = new EmptyExpectedResponse(200);
         }
 
-        public void url(UrlParameter urlParameter)
+        public void url(UrlParameters urlParameters)
         {
-            url(urlParameter.toString());
+            url(urlParameters.toString());
         }
 
         public void url(String parameters)
@@ -102,9 +102,9 @@ public class ApiRequest
             url.append(parameters);
         }
 
-        public void path(PathParameter pathParameter)
+        public void path(PathParameters pathParameters)
         {
-            for (Entry<String, String> header : pathParameter)
+            for (Entry<String, String> header : pathParameters)
             {
                 path(header.getKey(), header.getValue());
             }
@@ -122,9 +122,9 @@ public class ApiRequest
             url.replace(index, index + name.length(), value.toString());
         }
 
-        public void header(HeaderParameter headerParameter)
+        public void header(HeaderParameters headerParameters)
         {
-            for (Entry<String, String> header : headerParameter)
+            for (Entry<String, String> header : headerParameters)
             {
                 header(header.getKey(), header.getValue());
             }

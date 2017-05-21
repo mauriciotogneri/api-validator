@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class HeaderParameter extends HashMap<String, String> implements Iterable<Entry<String, String>>
+public class HeaderParameters extends HashMap<String, String> implements Iterable<Entry<String, String>>
 {
-    public HeaderParameter(Object object)
+    public HeaderParameters(Object object)
     {
         fill(object);
     }

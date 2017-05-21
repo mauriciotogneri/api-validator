@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class PathParameter extends HashMap<String, String> implements Iterable<Entry<String, String>>
+public class PathParameters extends HashMap<String, String> implements Iterable<Entry<String, String>>
 {
-    public PathParameter(Object object)
+    public PathParameters(Object object)
     {
         fill(object);
     }
