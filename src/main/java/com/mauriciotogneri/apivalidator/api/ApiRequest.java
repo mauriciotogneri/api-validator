@@ -110,6 +110,14 @@ public class ApiRequest
             }
         }
 
+        public void path(PathParameters pathParameters, String wrapper)
+        {
+            for (Entry<String, String> header : pathParameters)
+            {
+                path(String.format(wrapper, header.getKey()), header.getValue());
+            }
+        }
+
         public void path(String name, Object value)
         {
             int index = url.indexOf(name);
