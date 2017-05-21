@@ -7,17 +7,24 @@ import okhttp3.RequestBody;
 public class JsonBodyParameter extends BodyParameter
 {
     private final Object body;
+    private final Gson gson;
 
-    public JsonBodyParameter(Object body)
+    public JsonBodyParameter(Object body, Gson gson)
     {
         super("application/json");
 
         this.body = body;
+        this.gson = gson;
+    }
+
+    public JsonBodyParameter(Object body)
+    {
+        this(body, new Gson());
     }
 
     @Override
     public RequestBody body()
     {
-        return RequestBody.create(contentType(), new Gson().toJson(body));
+        return RequestBody.create(contentType(), gson.toJson(body));
     }
 }
