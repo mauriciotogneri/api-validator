@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.http2.Header;
 
 public class ApiRequest
 {
@@ -127,6 +128,11 @@ public class ApiRequest
             {
                 header(header.getKey(), header.getValue());
             }
+        }
+
+        public void header(Header header)
+        {
+            header(header.name.toString(), header.value.toString());
         }
 
         public void header(String key, Object value)
