@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -6,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mauriciotogneri</groupId>
     <artifactId>apivalidator</artifactId>
-    <version>0.13.0</version>
+    <version>0.14.0</version>
     <name>API Validator</name>
     <packaging>jar</packaging>
     <url>https://github.com/mauriciotogneri/api-validator</url>
@@ -65,17 +66,17 @@
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
     <dependencies>
 
 		<dependency>
-			<groupId>com.github.mauriciotogneri</groupId>
-			<artifactId>json-schema</artifactId>
-			<version>0.6.0</version>
+			<groupId>com.mauriciotogneri</groupId>
+			<artifactId>jsonschema</artifactId>
+			<version>0.7.0</version>
 		</dependency>
 
         <dependency>
