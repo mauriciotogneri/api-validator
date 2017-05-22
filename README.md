@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mauriciotogneri/apivalidator/blob/master/LICENSE.md)
+[![Download](https://api.bintray.com/packages/mauriciotogneri/maven/apivalidator/images/download.svg)](https://bintray.com/mauriciotogneri/maven/apivalidator/_latestVersion)
+
 # API Validator
 A Java library to generate API validators.
 
