@@ -8,6 +8,7 @@ import com.mauriciotogneri.apivalidator.responses.EmptyExpectedResponse;
 import com.mauriciotogneri.apivalidator.responses.ExpectedResponse;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -140,7 +141,7 @@ public class ApiRequest
 
         public void header(Header header)
         {
-            header(header.name.toString(), header.value.toString());
+            header(header.name.string(Charset.forName("UTF-8")), header.value.string(Charset.forName("UTF-8")));
         }
 
         public void header(String key, Object value)
