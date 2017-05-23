@@ -60,7 +60,7 @@ public abstract class ExpectedResponse
         }
     }
 
-    protected String body(Response response) throws IOException
+    private String body(Response response) throws IOException
     {
         return new String(response.body().bytes(), "UTF-8");
     }

@@ -26,17 +26,15 @@ public class JsonExpectedResponse extends ExpectedResponse
     @Override
     public ApiResult validate(Response response, String body) throws Exception
     {
-        String result = body(response);
-
-        ProcessingReport report = validate(result, schema);
+        ProcessingReport report = validate(body, schema);
 
         if (report.isSuccess())
         {
-            return ApiResult.valid(response, result);
+            return ApiResult.valid(response, body);
         }
         else
         {
-            return ApiResult.error(response, result, report.toString());
+            return ApiResult.error(response, body, report.toString());
         }
     }
 

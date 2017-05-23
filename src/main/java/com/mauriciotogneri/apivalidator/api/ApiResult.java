@@ -36,7 +36,7 @@ public class ApiResult
 
     public byte[] bytes() throws IOException
     {
-        return response.body().bytes();
+        return string().getBytes();
     }
 
     public String error()
