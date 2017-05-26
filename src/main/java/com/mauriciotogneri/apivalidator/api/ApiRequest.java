@@ -1,6 +1,7 @@
 package com.mauriciotogneri.apivalidator.api;
 
 import com.mauriciotogneri.apivalidator.parameters.body.BodyParameter;
+import com.mauriciotogneri.apivalidator.parameters.form.FormParameters;
 import com.mauriciotogneri.apivalidator.parameters.header.HeaderParameters;
 import com.mauriciotogneri.apivalidator.parameters.path.PathParameters;
 import com.mauriciotogneri.apivalidator.parameters.url.UrlParameters;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -105,9 +107,9 @@ public class ApiRequest
 
         public void path(PathParameters pathParameters)
         {
-            for (Entry<String, String> header : pathParameters)
+            for (Entry<String, String> entry : pathParameters)
             {
-                path(header.getKey(), header.getValue());
+                path(entry.getKey(), entry.getValue());
             }
         }
 
@@ -147,6 +149,18 @@ public class ApiRequest
         public void header(String key, Object value)
         {
             headers.put(key, value.toString());
+        }
+
+        public void form(FormParameters formParameters)
+        {
+            FormBody.Builder builder = new FormBody.Builder();
+
+            for (Entry<String, String> entry : formParameters)
+            {
+                builder.add(entry.getKey(), entry.getValue());
+            }
+
+            this.body = builder.build();
         }
 
         public void body(BodyParameter bodyParameter)

@@ -1,11 +1,11 @@
 package com.mauriciotogneri.apivalidator.parameters.form;
 
-import com.mauriciotogneri.apivalidator.parameters.base.ConcatenatedParameters;
+import com.mauriciotogneri.apivalidator.parameters.base.MapParameters;
 
-public class FormParameters extends ConcatenatedParameters
+public class FormParameters extends MapParameters
 {
     public FormParameters(Object object)
     {
-        super(object, false);
+        super(object);
     }
 }
