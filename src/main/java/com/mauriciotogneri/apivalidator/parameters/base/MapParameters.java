@@ -14,7 +14,7 @@ public class MapParameters extends HashMap<String, String> implements Iterable<E
 
     private void fill(Object object)
     {
-        Field[] fields = object.getClass().getDeclaredFields();
+        Field[] fields = object.getClass().getFields();
 
         for (Field field : fields)
         {

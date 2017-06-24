@@ -16,7 +16,7 @@ public class UrlParameters
     {
         StringBuilder builder = new StringBuilder();
 
-        Field[] fields = object.getClass().getDeclaredFields();
+        Field[] fields = object.getClass().getFields();
 
         for (Field field : fields)
         {
