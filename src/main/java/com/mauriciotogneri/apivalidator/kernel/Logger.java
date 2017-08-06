@@ -16,12 +16,10 @@ import okio.Buffer;
 
 public class Logger
 {
-    private final Boolean consoleLogs;
     private final BufferedWriter fileLog;
 
-    public Logger(Boolean consoleLogs, String filePath) throws Exception
+    public Logger(String filePath) throws Exception
     {
-        this.consoleLogs = consoleLogs;
         this.fileLog = fileLog(filePath);
     }
 
@@ -57,24 +55,12 @@ public class Logger
     {
         String log = text(format, text);
 
-        if (consoleLogs)
-        {
-            System.out.println(log);
-            System.out.flush();
-        }
-
         writeToFile(log, true);
     }
 
     public void logLine(String format, Object... text)
     {
         String log = text(format, text);
-
-        if (consoleLogs)
-        {
-            System.out.print(log);
-            System.out.flush();
-        }
 
         writeToFile(log, false);
     }
@@ -95,12 +81,6 @@ public class Logger
     public void error(String format, Object... text)
     {
         String log = text(format, text);
-
-        if (consoleLogs)
-        {
-            System.err.println(log);
-            System.err.flush();
-        }
 
         writeToFile(log, true);
     }

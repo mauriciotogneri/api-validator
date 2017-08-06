@@ -5,43 +5,26 @@ import com.mauriciotogneri.apivalidator.api.ApiResult;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import okhttp3.OkHttpClient;
 
-public abstract class ValidationEndPoint
+public class ValidationEndPoint
 {
     private final OkHttpClient client;
     private final Logger logger;
     private final String url;
-    private final Boolean exitOnFail;
-    private final List<TestReport> reports = new ArrayList<>();
+    private final String method;
 
-    protected ValidationEndPoint(OkHttpClient client, Logger logger, String url, Boolean exitOnFail)
+    protected ValidationEndPoint(OkHttpClient client, Logger logger, String url, String method)
     {
         this.client = client;
         this.logger = logger;
         this.url = url;
-        this.exitOnFail = exitOnFail;
+        this.method = method;
     }
 
-    protected abstract void execute() throws Exception;
-
-    protected void process(ApiResult result)
-    {
-    }
-
-    public List<TestReport> check() throws Exception
-    {
-        logger.log("%n\t» %s:", getClass().getSimpleName());
-
-        execute();
-
-        return reports;
-    }
-
-    protected ApiRequest.Builder request(String method)
+    protected ApiRequest.Builder request()
     {
         return new ApiRequest.Builder(client, method, url);
     }
@@ -68,16 +51,10 @@ public abstract class ValidationEndPoint
 
         if (apiResult.isValid())
         {
-            addTestReport(new TestReport(true));
-
-            process(apiResult);
-
             logger.log(" OK");
         }
         else
         {
-            addTestReport(new TestReport(false));
-
             logger.error("%n%n%s", apiResult.error());
 
             if (apiResult.response() != null)
@@ -94,15 +71,10 @@ public abstract class ValidationEndPoint
         logger.logRequest(apiRequest.request(), apiResult.isValid());
         logger.logResponse(apiResult.response(), apiResult.string(), endTime - startTime, apiResult.isValid());
 
-        if (exitOnFail && (!apiResult.isValid()))
-        {
-            System.exit(-1);
-        }
-
         return apiResult;
     }
 
-    public void checkNotEmpty(Object[] array, String message)
+    protected void checkNotEmpty(Object[] array, String message)
     {
         if (array.length == 0)
         {
@@ -110,19 +82,11 @@ public abstract class ValidationEndPoint
         }
     }
 
-    public void checkNotEmpty(List<?> list, String message)
+    protected void checkNotEmpty(Collection<?> list, String message)
     {
         if (list.isEmpty())
         {
             throw new RuntimeException(message);
-        }
-    }
-
-    private void addTestReport(TestReport report)
-    {
-        if (!reports.contains(report))
-        {
-            reports.add(report);
         }
     }
 
