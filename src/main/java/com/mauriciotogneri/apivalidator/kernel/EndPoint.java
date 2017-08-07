@@ -51,9 +51,9 @@ public class EndPoint
                 logger.error("%n%s%n", apiResult.response().toString());
             }
 
-            StringWriter errors = new StringWriter();
-            new Exception().printStackTrace(new PrintWriter(errors));
-            logger.error(errors.toString());
+            StringWriter stacktrace = new StringWriter();
+            new Exception().printStackTrace(new PrintWriter(stacktrace));
+            logger.error(stacktrace.toString());
         }
 
         logger.logRequest(apiRequest.request(), apiResult.isValid());
