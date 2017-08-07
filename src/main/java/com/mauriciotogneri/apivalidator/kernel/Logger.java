@@ -25,7 +25,7 @@ public class Logger
 
     private BufferedWriter fileLog(String filePath) throws Exception
     {
-        if ((filePath != null) && (!filePath.isEmpty()) && (!filePath.equals("-")))
+        if ((filePath != null) && (!filePath.isEmpty()))
         {
             DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd_HH-mm-ss");
             String timestamp = dtf.print(new DateTime());
@@ -53,21 +53,21 @@ public class Logger
 
     public void log(String format, Object... text)
     {
-        String log = text(format, text);
+        String log = String.format(format, text);
 
         writeToFile(log, true);
     }
 
     public void logLine(String format, Object... text)
     {
-        String log = text(format, text);
+        String log = String.format(format, text);
 
         writeToFile(log, false);
     }
 
     public void network(Boolean isValid, String format, Object... text)
     {
-        String log = text(format, text);
+        String log = String.format(format, text);
 
         if (!isValid)
         {
@@ -80,7 +80,7 @@ public class Logger
 
     public void error(String format, Object... text)
     {
-        String log = text(format, text);
+        String log = String.format(format, text);
 
         writeToFile(log, true);
     }
@@ -108,14 +108,9 @@ public class Logger
         }
     }
 
-    private String text(String format, Object... text)
-    {
-        return String.format(format, text);
-    }
-
     public void logRequest(Request request, Boolean isValid) throws IOException
     {
-        network(isValid, "%n>>> %s %s%n", request.method(), request.url());
+        network(isValid, "%n>>> %s %s", request.method(), request.url());
         network(isValid, "%s", request.headers());
 
         Buffer buffer = new Buffer();
@@ -133,7 +128,7 @@ public class Logger
     {
         if (response != null)
         {
-            network(isValid, "<<< %s %s (%d ms)%n", response.code(), response.request().url(), (int) (totalTime / 1e6d));
+            network(isValid, "<<< %s %s (%d ms)", response.code(), response.request().url(), (int) (totalTime / 1e6d));
             network(isValid, "%s", response.headers());
         }
 
