@@ -3,9 +3,6 @@ package com.mauriciotogneri.apivalidator.kernel;
 import com.mauriciotogneri.apivalidator.api.ApiRequest;
 import com.mauriciotogneri.apivalidator.api.ApiResult;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import okhttp3.OkHttpClient;
 
 public class EndPoint
@@ -42,22 +39,8 @@ public class EndPoint
 
         Long endTime = System.nanoTime();
 
-        if (!apiResult.isValid())
-        {
-            logger.error("%n%s", apiResult.error());
-
-            if (apiResult.response() != null)
-            {
-                logger.error("%n%s%n", apiResult.response().toString());
-            }
-
-            StringWriter stacktrace = new StringWriter();
-            new Exception().printStackTrace(new PrintWriter(stacktrace));
-            logger.error(stacktrace.toString());
-        }
-
-        logger.logRequest(apiRequest.request(), apiResult.isValid());
-        logger.logResponse(apiResult.response(), apiResult.string(), endTime - startTime, apiResult.isValid());
+        logger.logRequest(apiRequest.request());
+        logger.logResponse(apiResult.response(), apiResult.string(), endTime - startTime);
 
         return apiResult;
     }

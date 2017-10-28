@@ -19,6 +19,11 @@ public class ApiResult
         this.error = error;
     }
 
+    public int code()
+    {
+        return response.code();
+    }
+
     public Boolean isValid()
     {
         return valid;

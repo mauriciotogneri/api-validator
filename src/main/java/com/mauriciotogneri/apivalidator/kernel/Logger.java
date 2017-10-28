@@ -65,17 +65,9 @@ public class Logger
         writeToFile(log, false);
     }
 
-    public void network(Boolean isValid, String format, Object... text)
+    public void network(String format, Object... text)
     {
-        String log = String.format(format, text);
-
-        if (!isValid)
-        {
-            System.err.println(log);
-            System.err.flush();
-        }
-
-        writeToFile(log, true);
+        writeToFile(String.format(format, text), true);
     }
 
     public void error(String format, Object... text)
@@ -108,10 +100,10 @@ public class Logger
         }
     }
 
-    public void logRequest(Request request, Boolean isValid) throws IOException
+    public void logRequest(Request request) throws IOException
     {
-        network(isValid, "%n>>> %s %s", request.method(), request.url());
-        network(isValid, "%s", request.headers());
+        network("%n>>> %s %s", request.method(), request.url());
+        network("%s", request.headers());
 
         Buffer buffer = new Buffer();
         RequestBody requestBody = request.body();
@@ -120,23 +112,23 @@ public class Logger
         {
             requestBody.writeTo(buffer);
 
-            network(isValid, "%s%n", buffer.readUtf8());
+            network("%s%n", buffer.readUtf8());
         }
     }
 
-    public void logResponse(Response response, String result, Long totalTime, Boolean isValid)
+    public void logResponse(Response response, String result, Long totalTime)
     {
         if (response != null)
         {
-            network(isValid, "<<< %s %s (%d ms)", response.code(), response.request().url(), (int) (totalTime / 1e6d));
-            network(isValid, "%s", response.headers());
+            network("<<< %s %s (%d ms)", response.code(), response.request().url(), (int) (totalTime / 1e6d));
+            network("%s", response.headers());
         }
 
         if (!result.isEmpty())
         {
-            network(isValid, "%s%n", result);
+            network("%s%n", result);
         }
 
-        network(isValid, "====================================================================================================");
+        network("====================================================================================================");
     }
 }
