@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apivalidator.kernel;
+package com.mauriciotogneri.apivalidator.base;
 
 import com.mauriciotogneri.apivalidator.api.ApiRequest;
 import com.mauriciotogneri.apivalidator.api.ApiResult;

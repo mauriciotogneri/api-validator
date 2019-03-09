@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apivalidator.kernel;
+package com.mauriciotogneri.apivalidator.base;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
